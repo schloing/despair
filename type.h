@@ -1,30 +1,31 @@
 #pragma once
-#include <cstdint>
+#include <variant>
 
 namespace despair {
-enum DataType {
-    VOID,
-    INTEGRAL,
+// FIXME: don't know how to implement lattice
+
+enum TypeLattice {
+    TBOT, // bottom (ALL)
+    TTOP, // top (ANY)
+    TINT,
 };
 
-enum class DataTypeDescriptor : uint8_t {
-    CONSTANT = 0,
-    POINTER = 1 << 0,
-};
-
-inline DataTypeDescriptor operator|(DataTypeDescriptor a, DataTypeDescriptor b)
-{
-    return static_cast<DataTypeDescriptor>(static_cast<int>(a) | static_cast<int>(b));
-}
-
-class Type {
+class TypeBase {
 public:
-    DataType type;
-    DataTypeDescriptor descriptor;
+    enum TypeLattice type = TTOP;
 
-    inline bool isConstant()
-    {
-        return static_cast<bool>(this->descriptor | DataTypeDescriptor::CONSTANT);
-    }
+    TypeBase() = default;
+    TypeBase(enum TypeLattice type) : type(type) {};
+
+    virtual bool isConstant();
 };
-}; // namespace despair
+
+class TypeInteger : public TypeBase {
+public:
+    long value;
+
+    TypeInteger(long value) : value(value) {}
+};
+
+using Type = std::variant<TypeBase, TypeInteger>;
+} // namespace despair
