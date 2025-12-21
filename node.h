@@ -5,15 +5,16 @@
 
 namespace despair {
 class IRNode {
+private:
+    std::vector<IRNode*> inputs;
+    std::vector<IRNode*> outputs;
 public:
-    const std::vector<IRNode*> inputs;
-    const std::vector<IRNode*> outputs;
-    Type type;
+    IRNode(std::vector<IRNode*> inputs)
+        : inputs(inputs), outputs({}) {};
 
-    IRNode(std::vector<IRNode*> inputs, std::vector<IRNode*> outputs)
-        : inputs(std::move(inputs)), outputs(std::move(outputs)), type(TypeBase()) {}
-
-    virtual Type compute();
+    Type* type;
+    virtual Type* compute();
     virtual IRNode* peephole();
 };
+
 } // namespace despair

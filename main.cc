@@ -6,10 +6,10 @@
 
 int main()
 {
-    despair::Start func;
-    despair::TypeInteger retval (5);
-    despair::Constant retconstexpr (static_cast<despair::IRNode*>(&func), retval);
-    despair::Return retexpr (&func, retconstexpr.peephole());
+    despair::Constant num5 (new despair::Start(), new despair::TypeInteger(5));
+    despair::Constant num6 (new despair::Start(), new despair::TypeInteger(6));
+    despair::Multiply retvalexpr (&num5, &num6);
+    despair::Return retexpr (new despair::Start(), retvalexpr.peephole());
 
     return 0;
 }

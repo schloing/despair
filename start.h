@@ -4,6 +4,6 @@
 namespace despair {
 class Start : public IRNode {
 public:
-    Start() : IRNode({}, {}) {};
+    Start() : IRNode({}) {};
 };
 }

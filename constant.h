@@ -4,9 +4,15 @@
 namespace despair {
 class Constant : public IRNode {
 public:
-    const Type value;
+    const Type* value;
 
-    Constant(IRNode* start, Type value)
-        : IRNode({start}, {}), value(value) {}
+    Constant(IRNode* start, Type* value)
+        : IRNode({start}), value(value) {}
+
+    // FIXME: peephole shouldn't end here
+    IRNode* peephole() override
+    {
+        return nullptr;
+    }
 };
 } // namespace despair

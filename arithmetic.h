@@ -4,23 +4,27 @@
 namespace despair {
 class ArithmeticBinaryExpr : public IRNode {
 public:
-    const IRNode* a;
-    const IRNode* b;
+    IRNode* a;
+    IRNode* b;
 
     ArithmeticBinaryExpr(IRNode* a, IRNode* b)
-        : IRNode({a, b}, {}), a(a), b(a) {}
-
+        : IRNode({a, b}), a(a), b(a) {}
 };
 
 class Multiply : public ArithmeticBinaryExpr {
 public:
-    Type compute() override {
-        if (auto* ai = std::get_if<TypeInteger>(&a->type);
-            auto* bi = std::get_if<TypeInteger>(&b->type)) {
-            return TypeInteger(ai->value * bi->value);
+    using ArithmeticBinaryExpr::ArithmeticBinaryExpr;
+
+    Type* compute() override {
+        if (auto ai = dyn_cast<TypeInteger>(a->type);
+            auto bi = dyn_cast<TypeInteger>(b->type)) {
+            // TODO: add alternative
+            if (a->type->is_const() && b->type->is_const()) {
+                return new TypeInteger(ai->value * bi->value);
+            }
         }
 
-        return TypeBase(TypeLattice::TBOT);
+        return new Type(Type::Kind::BOT);
     }
 };
 } // namespace despair

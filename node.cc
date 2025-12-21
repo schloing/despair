@@ -5,21 +5,19 @@
 namespace despair {
 IRNode* IRNode::peephole()
 {
-    this->type = compute();
+    Type* t = compute();
 
-    // FIXME: this line is wrong, assuming TypeInteger means this->type.isConstant()
-    // TODO: somehow implement an isConstant()
-    if (std::get_if<TypeInteger>(&this->type)) {
-        // FIXME
-        return new despair::Constant(nullptr, this->type);
+    if (t && t->is_const()) {
+        return new despair::Constant(nullptr, t);
     }
 
-    // FIXME
-    return nullptr;
+    this->type = std::move(t);
+
+    return this;
 }
 
-Type IRNode::compute()
+Type* IRNode::compute()
 {
-    return Type();
+    return new Type();
 }
 } // namespace despair
