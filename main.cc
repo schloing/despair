@@ -6,10 +6,11 @@
 
 int main()
 {
-    despair::Constant num5 (new despair::Start(), new despair::TypeInteger(5));
-    despair::Constant num6 (new despair::Start(), new despair::TypeInteger(6));
+    despair::Start* func = new despair::Start();
+    despair::Constant num5 (func, new despair::TypeInteger(5));
+    despair::Constant num6 (func, new despair::TypeInteger(6));
     despair::Multiply retvalexpr (&num5, &num6);
-    despair::Return retexpr (new despair::Start(), retvalexpr.peephole());
+    despair::Return retexpr (func, retvalexpr.peephole());
 
     return 0;
 }
