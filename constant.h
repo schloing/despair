@@ -6,7 +6,7 @@ class Constant : public IRNode {
 public:
     const Type* value;
 
-    Constant(IRNode* start, Type* value)
+    Constant(IRNode* start, const Type* value)
         : IRNode({start}), value(value) {}
 
     // FIXME: peephole shouldn't end here
