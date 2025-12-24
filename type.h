@@ -2,17 +2,19 @@
 #include <memory>
 
 namespace despair {
-// FIXME: don't know how to implement lattice
-
 class Type {
 public:
     enum Kind {
         BOT,
         TOP,
         INT,
+        COUNT,
     };
 private:
     const Kind kind;
+    // TODO: make this less fragile
+    // reordering Type::Kind would require fixing the order here
+    static constexpr std::string_view str_types[Kind::COUNT] = { "BOT", "TOP", "INT" };
 public:
     Type() : kind(Kind::BOT) {}
     explicit Type(Kind kind) : kind(kind) {}
@@ -24,7 +26,12 @@ public:
 
     bool is_const() const
     {
-        return this->get_kind() == Kind::TOP;
+        return get_kind() == Kind::TOP;
+    }
+
+    static constexpr std::string_view label(Kind kind)
+    {
+        return str_types[static_cast<size_t>(kind)];
     }
 
     virtual ~Type() = default;
