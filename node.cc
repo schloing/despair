@@ -11,7 +11,7 @@ IRNode* IRNode::peephole()
         return new despair::Constant(nullptr, t);
     }
 
-    this->type = t;
+    type = t;
 
     return this;
 }
