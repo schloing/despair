@@ -8,6 +8,6 @@ public:
     const IRNode* data;
 
     Return(IRNode* ctrl, IRNode* data)
-        : IRNode({ctrl, data}), ctrl(ctrl), data(data) {}
+        : IRNode({ctrl, data}, RETURN), ctrl(ctrl), data(data) {}
 };
 }

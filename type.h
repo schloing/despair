@@ -44,19 +44,9 @@ public:
     TypeInteger(long value)
         : Type(Type::Kind::INT), value(value) {}
 
-    static bool is_class_of(Type* val)
+    static bool is_class_of(const Type* val)
     {
         return val->get_kind() == Type::Kind::INT;
     }
 };
-
-template <typename To, typename From>
-bool is_instance_of(From* Val) {
-    return To::is_class_of(Val);
-}
-
-template <typename To, typename From>
-To* dyn_cast(From* Val) {
-    return is_instance_of<To>(Val) ? static_cast<To*>(Val) : nullptr;
-}
 } // namespace despair

@@ -7,7 +7,7 @@ public:
     const Type* value;
 
     Constant(IRNode* start, const Type* value)
-        : IRNode({start}), value(value) {}
+        : IRNode({start}, Kind::CONST), value(value) {}
 
     // FIXME: peephole shouldn't end here
     IRNode* peephole() override
