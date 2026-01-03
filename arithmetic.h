@@ -59,6 +59,9 @@ class Subtract : public ArithmeticBinaryExpr {
 public:
     using ArithmeticBinaryExpr::ArithmeticBinaryExpr;
 
+    Subtract(IRNode* a, IRNode* b)
+        : ArithmeticBinaryExpr(a, b, IRNode::Kind::SUBTRACT) {};
+
     Type* compute() override {
         return compute_binary<TypeInteger>([](int x, int y){ return x - y; });
     }
@@ -73,6 +76,9 @@ class Multiply : public ArithmeticBinaryExpr {
 public:
     using ArithmeticBinaryExpr::ArithmeticBinaryExpr;
 
+    Multiply(IRNode* a, IRNode* b)
+        : ArithmeticBinaryExpr(a, b, IRNode::Kind::MULTIPLY) {};
+
     Type* compute() override {
         return compute_binary<TypeInteger>([](int x, int y){ return x * y; });
     }
@@ -86,6 +92,9 @@ public:
 class Divide : public ArithmeticBinaryExpr {
 public:
     using ArithmeticBinaryExpr::ArithmeticBinaryExpr;
+
+    Divide(IRNode* a, IRNode* b)
+        : ArithmeticBinaryExpr(a, b, IRNode::Kind::DIVIDE) {};
 
     Type* compute() override {
         return compute_binary<TypeInteger>([](int x, int y){ return x / y; });
