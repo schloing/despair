@@ -9,5 +9,10 @@ public:
 
     Return(IRNode* ctrl, IRNode* data)
         : IRNode({ctrl, data}, RETURN), ctrl(ctrl), data(data) {}
+
+    static bool is_class_of(const IRNode* val)
+    {
+        return val->get_kind() == IRNode::Kind::RETURN;
+    }
 };
 }
